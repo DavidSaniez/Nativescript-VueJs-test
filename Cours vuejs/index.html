@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<script src="vue.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<title>Hello Vue.js</title>
+	</head>
+
+	<body>
+		<div id="app">
+			<h2>{{title}}</h2>
+			<form v-on:submit.prevent="addTask()">
+				<input type="text" placeholder="Créer un groupe" v-model="task">
+				<button type="submit">ajouter</button>
+
+			</form>
+
+			<ul>
+				<li
+				v-bind:class="{completed: task.done}"
+				v-on:click="task.done = !task.done"
+				v-for="task in tasks">{{task.description}}</li>
+			</ul>
+		</div>
+
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				title: 'WyB',
+				task: null,
+				tasks: []
+			},
+			methods: {
+				addTask: function() {
+					event.preventDefault();
+					this.tasks.push({id: Date.now(), description: this.task, done: false});
+					console.log('tasks', this.tasks);
+					this.task = null;
+				}
+			}
+		})
+	</script>
+	</body>
+</html>
